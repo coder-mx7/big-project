@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+    integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</head>
+
+<style>
+  .center {
+    margin: 30px 0;
+  }
+
+  #post-created {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(13, 131, 209);
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  #liveAlertPlaceholder {
+    z-index: 999;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html">themse</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+
+          </ul>
+
+          <div id="login/regester" class="d-flex"
+            style="justify-content: space-between; width: 170px;align-items: center;">
+            <b id="userLogo"></b>
+            <img id="imageLogo" style="width: 50px;height: 50px; border-radius: 50%;margin: 0 10px;" src="" alt="">
+            <button onclick="logautt()" id="logaut" class="btn btn-outline-danger" type="button">logaut</button>
+            <button id="login" class="btn btn-outline-success" type="button" data-bs-toggle="modal"
+              data-bs-target="#loginModal">login</button>
+            <button data-bs-toggle="modal" data-bs-target="#regsterModal" id="regester" class="btn btn-outline-success"
+              type="submit">regester</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container">
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2" id="exampleModalLabel">Login</h1>
+          </div>
+          <div class="modal-body">
+            <h3>Email</h3>
+            <input id="email" placeholder="Enter your email" type="email">
+            <h3>Password</h3>
+            <input id="password" placeholder="Enter your password" type="password">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button onclick="getInputValues()" type="button" data-bs-dismiss="modal" class="btn btn-primary">Login
+              Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="regsterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2" id="exampleModalLabel">regester</h1>
+          </div>
+          <div class="modal-body">
+            <h3>Email</h3>
+            <input id="email-reg" placeholder="Enter your email" type="email">
+            <h3>username</h3>
+            <input id="username-reg" placeholder="Enter your username" type="text">
+            <h3>Password</h3>
+            <input id="password-reg" placeholder="Enter your password" type="password">
+            <h3>name</h3>
+            <input id="name-reg" placeholder="Enter your name" type="text">
+            <h3>image</h3>
+            <input id="image-reg" placeholder="Enter your email" type="file">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button onclick="regesterrr()" type="button" data-bs-dismiss="modal" class="btn btn-primary">regester
+              Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="content-card" style="width: 70%;margin: auto;">
+
+      <!---
+       --->
+
+    </div>
+
+    <div class="show fade" style="width: 30%;position: fixed;bottom: 0;right: 0;" id="liveAlertPlaceholder"></div>
+
+
+
+    <div data-bs-toggle="modal" data-bs-target="#post-created-model" id="post-created">
+      <svg style="color: rgb(0, 0, 0); " xmlns="http://www.w3.org/2000/svg" width="106" height="106" fill="currentColor"
+        class="bi bi-plus-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+      </svg>
+    </div>
+
+
+    <div class="modal fade" id="post-created-model" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2" id="headTitel">Crated Post</h1>
+          </div>
+          <div class="modal-body">
+            <h3>title</h3>
+            <input id="titlePost" type="text">
+            <h3>body</h3>
+            <textarea id="bodyPOST" style="width: 100%; height: 100px;resize: none;"></textarea>
+            <h3>image</h3>
+            <input id="image" placeholder="Enter your email" type="file">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button onclick="cratedPosted()" type="button" data-bs-dismiss="modal" class="btn btn-primary">crate
+              Post</button>
+            <input type="hidden" id="fals">
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+<script src="homeScript.js"></script>
+<script src="mainLogic.js"></script>
+
+</html>
